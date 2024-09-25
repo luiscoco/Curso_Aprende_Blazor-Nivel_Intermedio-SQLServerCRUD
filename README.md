@@ -106,13 +106,175 @@ namespace SQLServerCRUD.Data
 
 ## 10. Add the Data Model 
 
+Create the Product class
+
+![image](https://github.com/user-attachments/assets/16ebd8ab-1fa5-47cc-90c7-3c09889de9ed)
+
+Add the following source code
+
+```csharp
+namespace SQLServerCRUD.Data
+{
+    public class Product
+    {
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+    }
+}
+```
+
 ## 11. Add the Service
+
+Add the ProductService.cs file 
+
+![image](https://github.com/user-attachments/assets/a34c83b0-ef05-4a72-9338-bee03bcdc2b9)
+
+Add the following source code
+
+```csharp
+using SQLServerCRUD.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace SQLServerCRUD.Services
+{
+    public class ProductService
+    {
+        private readonly ApplicationDbContext _context;
+
+        public ProductService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<Product>> GetProductsAsync()
+        {
+            return await _context.Products.ToListAsync();
+        }
+
+        public async Task<Product> GetProductByIdAsync(int id)
+        {
+            return await _context.Products.FindAsync(id);
+        }
+
+        public async Task AddProductAsync(Product product)
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateProductAsync(Product product)
+        {
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteProductAsync(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+            }
+        }
+    }
+}
+```
 
 ## 12. Add the database connection string in the appsettings.json file
 
+Edit the appsettings.json file and add the database connection string
+
+```
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug",
+      "Microsoft": "Information",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "DetailedErrors": true,
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=BlazorAppDB;User Id=sa;Password=Luiscoco123456;Trusted_Connection=False;TrustServerCertificate=True;"
+  },
+  "AllowedHosts": "*"
+}
+```
+
 ## 13. Update the middleware (Program.cs)
 
+Include the services:
+
+```csharp
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+```
+
+and
+
+```
+builder.Services.AddScoped<ProductService>();
+```
+
+This is the Program.cs whole code:
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+using SQLServerCRUD.Components;
+using SQLServerCRUD.Data;
+using SQLServerCRUD.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+builder.Services.AddScoped<ProductService>();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseAntiforgery();
+
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+
+app.Run();
+```
+
 ## 14. Update the _Imports.razor 
+
+```
+@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.JSInterop
+@using SQLServerCRUD
+@using SQLServerCRUD.Components
+@using SQLServerCRUD.Data
+@using SQLServerCRUD.Services
+```
+
 
 ## 15. Run the application and verify the results
 
