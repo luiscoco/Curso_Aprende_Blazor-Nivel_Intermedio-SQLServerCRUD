@@ -275,7 +275,7 @@ app.Run();
 @using SQLServerCRUD.Services
 ```
 
-
 ## 15. Run the application and verify the results
 
+![image](https://github.com/user-attachments/assets/542b9195-8fe5-461a-a05b-b5a8f4057701)
 
