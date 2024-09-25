@@ -66,6 +66,22 @@ VALUES ('Laptop', 1000.00, 10),
 
 ## 6. Create a Blazor Web Application in Visual Studio 2022 Community Edition
 
+Run Visual Studio and create a new project
+
+![image](https://github.com/user-attachments/assets/000ec328-1122-444b-b5cb-c0316d84b5a8)
+
+Search for Blazor project templates and select Blazor Web App and press the next button
+
+![image](https://github.com/user-attachments/assets/f7411d00-90a4-4e57-b3a0-0add4144d5fb)
+
+Input the project name and chose the project location in the hard disk and press the next button 
+
+![image](https://github.com/user-attachments/assets/97fe1efd-c3c0-45b8-87e2-b51605d00912)
+
+Leave all the default values and press the Create button
+
+![image](https://github.com/user-attachments/assets/d580a161-0bef-4154-a4fe-3b724ed19f3f)
+
 ## 7. Add the Nuget packages
 
 Install the required NuGet packages:
