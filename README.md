@@ -19,4 +19,6 @@
 
 ## 9. Update the _Imports.razor 
 
+## 10. Run the application and verify the results
+
 
