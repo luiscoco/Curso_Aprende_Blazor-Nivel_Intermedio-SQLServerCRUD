@@ -64,25 +64,56 @@ VALUES ('Laptop', 1000.00, 10),
        ('Monitor', 200.00, 20);
 ```
 
-## 1. Create a Blazor Web Application in Visual Studio 2022 Community Edition
+## 6. Create a Blazor Web Application in Visual Studio 2022 Community Edition
 
-## 2. Add the Nuget packages
+## 7. Add the Nuget packages
 
-## 3. Create two new folders Data and Services
+Install the required NuGet packages:
 
-## 4. Add the ApplicationDbContext
+Microsoft.EntityFrameworkCore.SqlServer
 
+Microsoft.EntityFrameworkCore.Tools
 
-## 5. Add the Data Model 
+Microsoft.AspNetCore.Components.Authorization
 
-## 6. Add the Service
+![image](https://github.com/user-attachments/assets/3db54d42-ac83-44b8-a998-314726ed19c0)
 
-## 7. Add the database connection string in the appsettings.json file
+## 8. Create two new folders Data and Services
 
-## 8. Update the middleware (Program.cs)
+![image](https://github.com/user-attachments/assets/772fe810-5348-49ed-bf20-3be75a529ded)
 
-## 9. Update the _Imports.razor 
+## 9. Add the ApplicationDbContext
 
-## 10. Run the application and verify the results
+Create a new c# class in the Data folder
+
+![image](https://github.com/user-attachments/assets/6ece1384-4837-4ff3-a666-9acdd3458d29)
+
+We input the source code for the ApplicationDbContext.cs
+
+```csharp
+using Microsoft.EntityFrameworkCore;
+
+namespace SQLServerCRUD.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        public DbSet<Product> Products { get; set; }
+    }
+}
+```
+
+## 10. Add the Data Model 
+
+## 11. Add the Service
+
+## 12. Add the database connection string in the appsettings.json file
+
+## 13. Update the middleware (Program.cs)
+
+## 14. Update the _Imports.razor 
+
+## 15. Run the application and verify the results
 
 
